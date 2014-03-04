@@ -1,13 +1,12 @@
 import kiwi.*;
 
 void setup(){
-	size( 800, 600, "processing.opengl.PGraphicsOpenGL");
 	//size( 800, 600, PGraphicsOpenGLDelegate.CLASSNAME);
-	//size( 800, 600, PGDSRenderer.CLASSNAME);
-	//size( 800, 600, PGraphicsOpenGLDelegate.class.getName());
-	//size( 800, 600, PGDSRenderer.class.getName());
+	//size( 800, 600, PGraphics3DDelegate.CLASSNAME);
+	//size( 800, 600, PGLDSRenderer.CLASSNAME);
+	//size( 800, 600, P3DDSRenderer.CLASSNAME);
 	//PGDSRenderer.init( this);
-	println( g.getClass().getName());
+	println( this.g.getClass().getName());
 }
 
 void draw(){
@@ -31,8 +30,8 @@ public int sketchWidth() {
 public int sketchHeight() {
 	return 600;
 }
+*/
 
 public String sketchRenderer() {
-	return OPENGL;
-}*/
-
+	return P3D2.class.getName();
+}

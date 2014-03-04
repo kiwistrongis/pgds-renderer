@@ -1,7 +1,6 @@
 package kiwi;
 
 import java.awt.Image;
-
 import processing.core.*;
 import processing.opengl.*;
 

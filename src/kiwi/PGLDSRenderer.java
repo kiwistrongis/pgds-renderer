@@ -7,7 +7,7 @@ import java.util.Stack;
 import processing.core.*;
 import processing.opengl.*;
 
-public class PGDSRenderer extends PGraphicsOpenGLDelegate {
+public class PGLDSRenderer extends PGraphicsOpenGLDelegate {
 	//private fields
 	private Stack<PGraphicsOpenGL> delegates;
 	private PGraphicsOpenGL temp1 = null;
@@ -15,7 +15,7 @@ public class PGDSRenderer extends PGraphicsOpenGLDelegate {
 	private PGraphicsOpenGL temp3 = null;
 
 	//constructor
-	public PGDSRenderer(){
+	public PGLDSRenderer(){
 		super();
 		delegates = new Stack<PGraphicsOpenGL>();
 	}
@@ -104,20 +104,19 @@ public class PGDSRenderer extends PGraphicsOpenGLDelegate {
 	}
 
 	//static fields
-	public static final String CLASSNAME = "kiwi.PGDSRenderer";
-	//public static final String CLASSNAME = PGDSRenderer.class.getName();
+	public static final String CLASSNAME = PGLDSRenderer.class.getName();
 	private static PApplet applet = null;
-	private static PGDSRenderer renderer = null;
+	private static PGLDSRenderer renderer = null;
 
 	//static functions
 	public static void init( PApplet applet){
-		PGDSRenderer.applet = applet;
+		PGLDSRenderer.applet = applet;
 		//validate renderer
-		if( ! PGDSRenderer.class.isInstance( applet.g))
+		if( ! PGLDSRenderer.class.isInstance( applet.g))
 			throw new RuntimeException(
-				String.format( "To use this library you must use PGDSRenderer.CLASSNAME as the renderer field in size(). For example: size( 800, 600, PGDSRenderer.CLASSNAME). You used %s.",
+				String.format( "To use this library you must use PGLDSRenderer.CLASSNAME as the renderer field in size(). For example: size( 800, 600, PGLDSRenderer.CLASSNAME). You used %s.",
 					applet.g.getClass().getName()));
-		renderer = (PGDSRenderer) applet.g;
+		renderer = (PGLDSRenderer) applet.g;
 		applet.registerMethod("pre", renderer);
 		applet.registerMethod("draw", renderer);
 	}
