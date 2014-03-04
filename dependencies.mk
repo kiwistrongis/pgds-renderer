@@ -1,4 +1,3 @@
 #dependencies
-
-#top level package
-bin/kiwi/CPGraphics.class: \
+bin/kiwi/PGDSRenderer.class: \
+	bin/kiwi/PGraphicsOpenGLDelegate.class

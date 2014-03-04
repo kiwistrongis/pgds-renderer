@@ -1,22 +1,21 @@
 package kiwi;
 
 //standard library imports
-import java.awt.Image;
 import java.util.Stack;
 
 //processing imports
 import processing.core.*;
 import processing.opengl.*;
 
-public class CPGraphics extends PGraphicsOpenGLDelegate {
+public class PGDSRenderer extends PGraphicsOpenGLDelegate {
 	//private fields
 	private Stack<PGraphicsOpenGL> delegates;
-	private PGraphicsOpenGL temp1 = null;;
-	private PGraphicsOpenGL temp2 = null;;
-	private PGraphicsOpenGL temp3 = null;;
+	private PGraphicsOpenGL temp1 = null;
+	private PGraphicsOpenGL temp2 = null;
+	private PGraphicsOpenGL temp3 = null;
 
 	//constructor
-	public CPGraphics(){
+	public PGDSRenderer(){
 		super();
 		delegates = new Stack<PGraphicsOpenGL>();
 	}
@@ -40,12 +39,24 @@ public class CPGraphics extends PGraphicsOpenGLDelegate {
 
 	//render calls
 	public void pre(){
-		if( temp1 == null) temp1 = (PGraphicsOpenGL) parent.createGraphics(
-			this.width, this.height, PConstants.OPENGL);
-		if( temp2 == null) temp2 = (PGraphicsOpenGL) parent.createGraphics(
-			this.width, this.height, PConstants.OPENGL);
-		if( temp3 == null) temp3 = (PGraphicsOpenGL) parent.createGraphics(
-			this.width, this.height, PConstants.OPENGL);
+		/*if( temp1 == null){
+			temp1 = (PGraphicsOpenGL) parent.createGraphics(
+				this.width, this.height, PConstants.OPENGL);
+			temp1.beginDraw();
+			temp1.background( 0, 0, 0, 0);
+			temp1.endDraw();}
+		if( temp2 == null){
+			temp2 = (PGraphicsOpenGL) parent.createGraphics(
+				this.width, this.height, PConstants.OPENGL);
+			temp2.beginDraw();
+			temp2.background( 0, 0, 0, 0);
+			temp2.endDraw();}
+		if( temp3 == null){
+			temp3 = (PGraphicsOpenGL) parent.createGraphics(
+				this.width, this.height, PConstants.OPENGL);
+			temp3.beginDraw();
+			temp3.background( 0, 0, 0, 0);
+			temp3.endDraw();}
 		pushDelegate( temp1);
 			beginDraw();
 			pushDelegate( temp2);
@@ -64,6 +75,7 @@ public class CPGraphics extends PGraphicsOpenGLDelegate {
 				noFill();
 				stroke( 250, 250, 250, 200);
 				strokeWeight( 5);
+				strokeCap( ROUND);
 				rect( 100, 100, width - 200, height - 200);
 				popStyle();
 				endDraw();
@@ -73,34 +85,39 @@ public class CPGraphics extends PGraphicsOpenGLDelegate {
 			noFill();
 			stroke( 250, 250, 250, 200);
 			strokeWeight( 5);
+			strokeCap( ROUND);
 			rect( 100, 100, width - 200, height - 200);
 			popStyle();
 			endDraw();
-		popDelegate();
+		popDelegate();*/
 	}
 	public void draw(){
-		image( temp1, 100, 100, width - 200, height - 200);
+		/*image( temp1, 100, 100, width - 200, height - 200);
 		pushStyle();
 		noFill();
 		stroke( 250, 250, 250, 200);
 		strokeWeight( 5);
+		strokeCap( ROUND);
 		rect( 100, 100, width - 200, height - 200);
 		popStyle();
+		String asdf = (String) null;*/
 	}
 
 	//static fields
-	public static final String RENDERER = CPGraphics.class.getName();
+	public static final String CLASSNAME = "kiwi.PGDSRenderer";
+	//public static final String CLASSNAME = PGDSRenderer.class.getName();
 	private static PApplet applet = null;
-	private static CPGraphics renderer = null;
+	private static PGDSRenderer renderer = null;
 
 	//static functions
 	public static void init( PApplet applet){
-		CPGraphics.applet = applet;
+		PGDSRenderer.applet = applet;
 		//validate renderer
-		if( ! CPGraphics.class.isInstance( applet.g))
+		if( ! PGDSRenderer.class.isInstance( applet.g))
 			throw new RuntimeException(
-				"To use this library you must use CPGraphics.RENDERER as the renderer field in size(). For example: size( 800, 600, CPGraphics.RENDERER)");
-		renderer = (CPGraphics) applet.g;
+				String.format( "To use this library you must use PGDSRenderer.CLASSNAME as the renderer field in size(). For example: size( 800, 600, PGDSRenderer.CLASSNAME). You used %s.",
+					applet.g.getClass().getName()));
+		renderer = (PGDSRenderer) applet.g;
 		applet.registerMethod("pre", renderer);
 		applet.registerMethod("draw", renderer);
 	}

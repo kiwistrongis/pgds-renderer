@@ -4,15 +4,14 @@ freshen: clean build
 clean: clean-specials
 	rm -rf bin/*
 clean-specials:
-	rm -f $(jarfile)
+	rm -f library/*.jar
 
 #variables
-cp = -cp src:bin:lib/*:lib/processing/*
+cp = -cp bin:lib/processing/*
 dest = -d bin
-docscp = -classpath src:bin:lib/*:lib/processing/*
-documentation = -d javadoc
-jarfile = library/cpgraphics.jar
-version = -source 1.6 -target 1.6
+jarfile = library/pgdsr.jar
+version = 0.0.1
+java_version = -source 1.6 -target 1.6
 warnings = -Xlint:-options
 #warnings = -Xlint:-deprecation -Xlint:-options
 
@@ -22,7 +21,7 @@ include lists.mk
 
 #compilation definitions
 $(class_files): bin/%.class : src/%.java
-	javac $(cp) $(dest) $(version) $(warnings) $<
+	javac $(cp) $(dest) $(java_version) $(warnings) $<
 
 #basic commands
 build: $(class_files)
@@ -36,8 +35,8 @@ git-prepare:
 	git add -u
 	git add -A
 
-
 #test commands
 test: build jar
 	pshell test
-
+test-a: build jar
+	pshell -a test

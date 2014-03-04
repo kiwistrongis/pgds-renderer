@@ -6,6 +6,8 @@ import processing.core.*;
 import processing.opengl.*;
 
 public class PGraphicsOpenGLDelegate extends PGraphicsOpenGL {
+	//static fields
+	public static final String CLASSNAME = PGraphicsOpenGLDelegate.class.getName();
 	//fields
 	private PGraphicsOpenGL delegate;
 
@@ -17,7 +19,7 @@ public class PGraphicsOpenGLDelegate extends PGraphicsOpenGL {
 
 	//accessor methods
 	public PGraphicsOpenGL getDelegate(){
-		return delegate == null ? this: delegate;
+		return delegate == null ? this : delegate;
 	}
 	public void setDelegate( PGraphicsOpenGL delegate){
 		this.delegate = delegate;
