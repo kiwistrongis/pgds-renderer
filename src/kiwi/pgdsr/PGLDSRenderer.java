@@ -1,7 +1,8 @@
-package kiwi;
+package kiwi.pgdsr;
 
 //standard library imports
 import java.util.Stack;
+import java.lang.reflect.Method;
 
 //processing imports
 import processing.core.*;
@@ -10,9 +11,9 @@ import processing.opengl.*;
 public class PGLDSRenderer extends PGraphicsOpenGLDelegate {
 	//private fields
 	private Stack<PGraphicsOpenGL> delegates;
-	private PGraphicsOpenGL temp1 = null;
-	private PGraphicsOpenGL temp2 = null;
-	private PGraphicsOpenGL temp3 = null;
+	private static PGraphicsOpenGL temp1 = null;
+	private static PGraphicsOpenGL temp2 = null;
+	private static PGraphicsOpenGL temp3 = null;
 
 	//constructor
 	public PGLDSRenderer(){
@@ -31,6 +32,9 @@ public class PGLDSRenderer extends PGraphicsOpenGLDelegate {
 		pushDelegate( delegate);
 	}
 	public void pushDelegate( PGraphicsOpenGL delegate){
+		if( delegate == null)
+			throw new NullPointerException(
+				"Cannot push a null to the delegate stack.");
 		delegates.push( delegate);
 	}
 	public PGraphicsOpenGL popDelegate(){
@@ -39,37 +43,22 @@ public class PGLDSRenderer extends PGraphicsOpenGLDelegate {
 
 	//render calls
 	public void pre(){
-		/*if( temp1 == null){
-			temp1 = (PGraphicsOpenGL) parent.createGraphics(
-				this.width, this.height, PConstants.OPENGL);
-			temp1.beginDraw();
-			temp1.background( 0, 0, 0, 0);
-			temp1.endDraw();}
-		if( temp2 == null){
-			temp2 = (PGraphicsOpenGL) parent.createGraphics(
-				this.width, this.height, PConstants.OPENGL);
-			temp2.beginDraw();
-			temp2.background( 0, 0, 0, 0);
-			temp2.endDraw();}
-		if( temp3 == null){
-			temp3 = (PGraphicsOpenGL) parent.createGraphics(
-				this.width, this.height, PConstants.OPENGL);
-			temp3.beginDraw();
-			temp3.background( 0, 0, 0, 0);
-			temp3.endDraw();}
+		deltest_pre();
+	}
+	public void draw(){
+		deltest_draw();
+	}
+
+	//test functions
+	public void deltest_pre(){
 		pushDelegate( temp1);
-			beginDraw();
 			pushDelegate( temp2);
-				beginDraw();
 				pushDelegate( temp3);
 					beginDraw();
-					pushStyle();
-					fill( 100, 200, 200, 200);
-					noStroke();
-					rect( 10, 10, 100, 100);
-					popStyle();
+					deltest_reflect();
 					endDraw();
 				popDelegate();
+				beginDraw();
 				image( temp3, 100, 100, temp3.width - 200, temp3.height - 200);
 				pushStyle();
 				noFill();
@@ -80,6 +69,7 @@ public class PGLDSRenderer extends PGraphicsOpenGLDelegate {
 				popStyle();
 				endDraw();
 			popDelegate();
+			beginDraw();
 			image( temp2, 100, 100, temp2.width - 200, temp2.height - 200);
 			pushStyle();
 			noFill();
@@ -89,10 +79,10 @@ public class PGLDSRenderer extends PGraphicsOpenGLDelegate {
 			rect( 100, 100, width - 200, height - 200);
 			popStyle();
 			endDraw();
-		popDelegate();*/
+		popDelegate();
 	}
-	public void draw(){
-		/*image( temp1, 100, 100, width - 200, height - 200);
+	public void deltest_draw(){
+		image( temp1, 100, 100, width - 200, height - 200);
 		pushStyle();
 		noFill();
 		stroke( 250, 250, 250, 200);
@@ -100,7 +90,14 @@ public class PGLDSRenderer extends PGraphicsOpenGLDelegate {
 		strokeCap( ROUND);
 		rect( 100, 100, width - 200, height - 200);
 		popStyle();
-		String asdf = (String) null;*/
+	}
+	public static void deltest_reflect(){
+		Class applet_class = applet.getClass();
+		try{
+			Method drawMethod = applet_class.getMethod("drawMethod");
+			drawMethod.invoke( applet);}
+		catch( Exception exception){
+			exception.printStackTrace();}
 	}
 
 	//static fields
@@ -119,5 +116,24 @@ public class PGLDSRenderer extends PGraphicsOpenGLDelegate {
 		renderer = (PGLDSRenderer) applet.g;
 		applet.registerMethod("pre", renderer);
 		applet.registerMethod("draw", renderer);
+
+		//initialize temp1		
+		temp1 = (PGraphicsOpenGL) applet.createGraphics(
+			renderer.width, renderer.height, PConstants.OPENGL);
+		temp1.beginDraw();
+		temp1.background( 0, 0, 0, 0);
+		temp1.endDraw();
+		//initialize temp2
+		temp2 = (PGraphicsOpenGL) applet.createGraphics(
+			renderer.width, renderer.height, PConstants.OPENGL);
+		temp2.beginDraw();
+		temp2.background( 0, 0, 0, 0);
+		temp2.endDraw();
+		//initialize temp3
+		temp3 = (PGraphicsOpenGL) applet.createGraphics(
+			renderer.width, renderer.height, PConstants.OPENGL);
+		temp3.beginDraw();
+		temp3.background( 0, 0, 0, 0);
+		temp3.endDraw();
 	}
 }

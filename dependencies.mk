@@ -1,5 +1,5 @@
 #dependencies
-bin/kiwi/PGLDSRenderer.class: \
-	bin/kiwi/PGraphicsOpenGLDelegate.class
-bin/kiwi/P3DDSRenderer.class: \
-	bin/kiwi/PGraphics3DDelegate.class
+bin/kiwi/pgdsr/PGLDSRenderer.class: \
+	bin/kiwi/pgdsr/PGraphicsOpenGLDelegate.class
+bin/kiwi/pgdsr/P3DDSRenderer.class: \
+	bin/kiwi/pgdsr/PGraphics3DDelegate.class

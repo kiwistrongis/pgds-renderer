@@ -1,4 +1,4 @@
-package kiwi;
+package kiwi.pgdsr;
 
 import java.awt.Image;
 import processing.core.*;
@@ -23,7 +23,6 @@ public class PGraphicsOpenGLDelegate extends PGraphicsOpenGL {
 	public void setDelegate( PGraphicsOpenGL delegate){
 		this.delegate = delegate;
 	}
-
 
 	//delegate methods
 	public void ambient(float v1, float v2, float v3) {

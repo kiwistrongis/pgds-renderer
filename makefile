@@ -36,7 +36,11 @@ git-prepare:
 	git add -A
 
 #test commands
-test: build jar
-	pshell test
-test-a: build jar
-	pshell -a test
+test-gl: build jar
+	pshell testgl
+test-gl-a: build jar
+	pshell -a testgl
+test-3d: build jar
+	pshell test3d
+test-3d-a: build jar
+	pshell -a test3d
