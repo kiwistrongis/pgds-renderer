@@ -30,6 +30,13 @@ jar: $(jarfile)
 $(jarfile): build
 	jar cf $(jarfile) -C bin kiwi
 
+package: build jar
+	mkdir pgdsr
+	cp -r library library.properties pgdsr
+	zip -r pgdsr.zip pgdsr
+	rm -rf pgdsr
+
+
 #extra commands
 git-prepare:
 	git add -u
