@@ -4,7 +4,7 @@ freshen: clean build
 clean: clean-specials
 	rm -rf bin/*
 clean-specials:
-	rm -f library/*.jar
+	rm -f library/*.jar *.zip
 
 #variables
 cp = -cp bin:lib/processing/*
